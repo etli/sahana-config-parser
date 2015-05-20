@@ -29,13 +29,13 @@ function parseFile() {
         var lineNum = i + 1;
         var module = setting.split('.')[1];
         var name = setting.split('.')[2];
-        var defaultVal = lines[i].match(regexDefaultVal)[1];
-        var desc = getDesc(lines[i - 1]);     
+        var defaultVal = handleQuotes(lines[i].match(regexDefaultVal)[1]);
+        var desc = handleQuotes(getDesc(lines[i - 1]));     
 
-        var outputRow = [lineNum, setting, module, name, defaultVal, desc].join(',');
+        var outputRow = [lineNum, setting, module, name, defaultVal, desc].join(',') + '\n';
 
         // write to output file
-        fs.appendFile(output, outputRow + '\n', function(err) {
+        fs.appendFile(output, outputRow, function(err) {
           if (err) console.log(err);
         });
       }
@@ -46,13 +46,18 @@ function parseFile() {
 function getDesc(line) {
   var descLine = line.match(regexDesc);
   if (descLine) {
-    var containsSettings = descLine[0].match(regexSettings);
-    if (containsSettings)
+    var hasSettings = descLine[0].match(regexSettings);
+    if (hasSettings)
       return '';
-    else {
-      return descLine[0];
-    }
-  }         
+    return descLine[0];
+  }
+  return '';        
+}
+
+// Replaces double quotes (") with two double quotes ("")
+// and wraps entire field in quotes for cleaner CSV import
+function handleQuotes(field) {
+  return '"' + field.replace(/"/g, '""') + '"';
 }
 
 parseFile();
