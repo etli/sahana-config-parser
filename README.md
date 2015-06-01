@@ -1,6 +1,8 @@
 # sahana-config-parser
 Parses the Sahana Eden config.py file into a CSV, which can then be imported into a human-readable spreadsheet.
 
+Output can be viewed here: https://docs.google.com/spreadsheets/d/1uRI--NMhUAe9SzdbAZW3RZsTdqD1cP6lUrsW26NhndA/edit
+
 ### Setup
 
 1. Install [Node.js](https://nodejs.org/)
@@ -10,7 +12,8 @@ Parses the Sahana Eden config.py file into a CSV, which can then be imported int
 
 ### TODO
 
-- Support multi-line default values
 - Support multi-line descriptions
+- Support multi-line default values
 - Call the latest config.py rather than manually updating it
 - Parse modules
+- Output to a format that can be used for UI development

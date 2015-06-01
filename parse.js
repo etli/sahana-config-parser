@@ -11,13 +11,15 @@ var regexDefaultVal = /settings\.[\w]+\.[\w()\_\-\[\]]+[\s=]+([\w\W]+)/i;
 var regexDesc = /[^\s#][\w\W]+/i;
 
 function parseFile() {
-  // clear output file
-  fs.writeFile(output, '', function(err) {
+  // clear output file and add column headings
+  fs.writeFile(output, 'Line #, Module, Name, Default Value, Description\n', function(err) {
     if (err) console.log(err);
   });
 
   // read input file
   fs.readFile(input, 'utf8', function(err, data) {
+    var count = 0;
+
     var lines = data.split('\n');
     for (var i = 0; i < lines.length; i++) {
       
@@ -32,14 +34,18 @@ function parseFile() {
         var defaultVal = handleQuotes(lines[i].match(regexDefaultVal)[1]);
         var desc = handleQuotes(getDesc(lines[i - 1]));     
 
-        var outputRow = [lineNum, setting, module, name, defaultVal, desc].join(',') + '\n';
+        var outputRow = [lineNum, module, name, defaultVal, desc].join(',') + '\n';
 
         // write to output file
         fs.appendFile(output, outputRow, function(err) {
           if (err) console.log(err);
         });
+
+        count++;
       }
     }
+
+    console.log('Success! ' + count + ' settings parsed.');
   });
 }
 
