@@ -13,3 +13,4 @@ Parses the Sahana Eden config.py file into a CSV, which can then be imported int
 - Support multi-line default values
 - Support multi-line descriptions
 - Call the latest config.py rather than manually updating it
+- Parse modules
