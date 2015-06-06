@@ -31,7 +31,7 @@ function parseFile() {
         var name = setting.split('.')[2];
         var defaultVal = lines[i].match(regexDefaultVal)[1];
         var lastChar = defaultVal.charAt(defaultVal.length-1);
-        if(lastChar == '{' || lastChar == ',' || lastChar == '['){
+        if(lastChar == '{' || lastChar == '[' || lastChar == '(' || lastChar == ','){
           // if the default value has several lines 
           var j = i;
           var newline;
@@ -40,12 +40,11 @@ function parseFile() {
             if(!lines[j]) break;
             newline = lines[j].replace(/ /g,'')
             defaultVal += newline.substr(1);
-            if(newline.charAt(newline.length-1) == '}' || newline.charAt(newline.length-1) == ')') break;
+            if(newline.charAt(newline.length-1) == '}' || newline.charAt(newline.length-1) == ']' || newline.charAt(newline.length-1) == ')') break;
           }
-          while(defaultVal.indexOf(',')!=-1){
-            defaultVal = defaultVal.replaceAt(defaultVal.indexOf(','),';');
-          }      
         }
+        defaultVal = defaultVal.replaceCommaBySemicolon();
+
         var desc = getDesc(lines[i - 1]);     
 
         var outputRow = [lineNum, setting, module, name, defaultVal, desc].join(',');
@@ -73,6 +72,14 @@ function getDesc(line) {
 
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+String.prototype.replaceCommaBySemicolon=function() {
+    var temp = this;
+    while(temp.indexOf(',')!=-1){
+        temp = temp.replaceAt(temp.indexOf(','),';');
+    }
+    return temp;  
 }
 
 parseFile();
