@@ -13,7 +13,6 @@ Output can be viewed here: https://docs.google.com/spreadsheets/d/1uRI--NMhUAe9S
 ### TODO
 
 - Support multi-line descriptions
-- Support multi-line default values
 - Call the latest config.py rather than manually updating it
 - Parse modules
 - Output to a format that can be used for UI development
