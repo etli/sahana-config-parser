@@ -4,7 +4,7 @@
 46,settings.security.self_registration,security,self_registration,False,Should users be allowed to register themselves?
 48,settings.auth.registration_requires_verification,auth,registration_requires_verification,True,Do new users need to verify their email address?
 50,settings.auth.registration_requires_approval,auth,registration_requires_approval,True,Do new users need to be approved by an administrator prior to being able to login?
-53,settings.auth.registration_link_user_to,auth,registration_link_user_to,{"staff":T("Staff"),,Allow a new user to be linked to a record (and a new record will be created if it doesn't already exist)
+53,settings.auth.registration_link_user_to,auth,registration_link_user_to,{"staff":T("Staff");"volunteer":T("Volunteer");"member":T("Member")},Allow a new user to be linked to a record (and a new record will be created if it doesn't already exist)
 58,settings.auth.always_notify_approver,auth,always_notify_approver,False,Always notify the approver of a new (verified) user, even if the user is automatically approved
 61,settings.auth.opt_in_team_list,auth,opt_in_team_list,["Updates"],The name of the teams that users are added to when they opt-in to receive alerts
 63,settings.auth.opt_in_default,auth,opt_in_default,True,Uncomment this to set the opt in default to True
@@ -35,7 +35,7 @@
 119,settings.auth.set_presence_on_login,auth,set_presence_on_login,True,Uncomment this to enable presence records on login based on HTML5 geolocations
 121,settings.auth.ignore_levels_for_presence,auth,ignore_levels_for_presence,("L0", "L1", "L2", "L3"),Uncomment this and specify a list of location levels to be ignored by presence records
 123,settings.auth.create_unknown_locations,auth,create_unknown_locations,True,Uncomment this to enable the creation of new locations if a user logs in from an unknown location. Warning: This may lead to many useless location entries
-128,settings.L10n.languages,L10n,languages,OrderedDict([,http://www.loc.gov/standards/iso639-2/php/code_list.php
+128,settings.L10n.languages,L10n,languages,OrderedDict([("ar";"العربية");("bs";"Bosanski");("en";"English");("fr";"Français");("de";"Deutsch");("el";"ελληνικά");("es";"Español");("it";"Italiano");("ja";"日本語");("km";"ភាសាខ្មែរ");("ko";"한국어");("mn";"Монголхэл");#Mongolian("ne";"नेपाली");#Nepali("prs";"دری");#Dari("ps";"پښتو");#Pashto("pt";"Português");("pt-br";"Português(Brasil)");("ru";"русский");("tet";"Tetum");("tl";"Tagalog");("tr";"Türkçe");("ur";"اردو");("vi";"TiếngViệt");("zh-cn";"中文(简体)");("zh-tw";"中文(繁體)");]),http://www.loc.gov/standards/iso639-2/php/code_list.php
 156,settings.L10n.default_language,L10n,default_language,"en",Default language for Language Toolbar (& GIS Locations in future)
 158,settings.L10n.display_toolbar,L10n,display_toolbar,False,Uncomment to Hide the language toolbar
 160,settings.L10n.utc_offset,L10n,utc_offset,"+0000",Default timezone for users
@@ -46,13 +46,13 @@
 170,settings.L10n.thousands_separator,L10n,thousands_separator,",",Thousands separator for numbers (defaults to space)
 172,settings.L10n.default_country_code,L10n,default_country_code,1,Default Country Code for telephone numbers
 174,settings.L10n.mandatory_lastname,L10n,mandatory_lastname,True,Make last name in person/user records mandatory
-176,settings.L10n.religions,L10n,religions,{"none": T("none"),,Configure the list of Religions
+176,settings.L10n.religions,L10n,religions,{"none": T("none");"christian":T("Christian");"muslim":T("Muslim");"jewish":T("Jewish");"buddhist":T("Buddhist");"hindu":T("Hindu");"bahai":T("Bahai");"other":T("other"),Configure the list of Religions
 186,settings.L10n.translate_cms_series,L10n,translate_cms_series,True,Uncomment this to Translate CMS Series Names
 188,settings.L10n.translate_gis_layer,L10n,translate_gis_layer,True,Uncomment this to Translate Layer Names
 190,settings.L10n.translate_gis_location,L10n,translate_gis_location,True,Uncomment this to Translate Location Names
 192,settings.L10n.name_alt_gis_location,L10n,name_alt_gis_location,True,Uncomment this for Alternate Location Names
 194,settings.L10n.translate_org_organisation,L10n,translate_org_organisation,True,Uncomment this to Translate Organisation Names/Acronyms
-197,settings.fin.currencies,fin,currencies,{,Finance settings
+197,settings.fin.currencies,fin,currencies,{"EUR":T("Euros");"GBP":T("GreatBritishPounds");"USD":T("UnitedStatesDollars");},Finance settings
 202,settings.fin.currency_default,fin,currency_default,"USD",
 203,settings.fin.currency_writable,fin,currency_writable,False # False currently breaks things,
 207,settings.base.paper_size,base,paper_size,T("Letter"),Default page size for reports (defaults to A4)
@@ -142,7 +142,7 @@
 414,settings.ui.interim_save,ui,interim_save,True,Uncomment to include an Interim Save button on CRUD forms
 416,settings.ui.use_button_icons,ui,use_button_icons,True,Uncomment to enable icons on action buttons (requires corresponding CSS)
 418,settings.ui.multiselect_widget,ui,multiselect_widget,True,Uncomment to use S3MultiSelectWidget on all dropdowns (currently the Auth Registration page & LocationSelectorWidget2 listen to this)
-420,settings.ui.hierarchy_theme,ui,hierarchy_theme,dict(css = "../themes/MYTHEME",,Theme for the S3HierarchyWidget
+420,settings.ui.hierarchy_theme,ui,hierarchy_theme,dict(css = "../themes/MYTHEME";icons=True;stripes=False;),Theme for the S3HierarchyWidget
 425,settings.ui.default_cancel_button,ui,default_cancel_button,True,Uncomment to show a default cancel button in standalone create/update forms
 427,settings.ui.datatables_responsive,ui,datatables_responsive,False,Uncomment to disable responsive behavior of datatables
 429,settings.ui.label_permalink,ui,label_permalink,"Permalink",Uncomment to modify the label of the Permalink
@@ -168,6 +168,7 @@
 483,settings.member.cv_tab,member,cv_tab,True,Show a CV tab for Members
 488,settings.pr.import_update_requires_email,pr,import_update_requires_email,False,Uncomment to allow person imports to match even without email addresses
 490,settings.pr.hide_third_gender,pr,hide_third_gender,False,Uncomment this to enable support for third gender
+492,settings.pr.lookup_duplicates,pr,lookup_duplicates,True,Uncomment to a fuzzy search for duplicates in the new AddPersonWidget2
 494,settings.pr.request_dob,pr,request_dob,False,Uncomment to hide fields in S3AddPersonWidget[2]
 495,settings.pr.request_gender,pr,request_gender,False,
 497,settings.pr.request_home_phone,pr,request_home_phone,True,Uncomment to show field in S3AddPersonWidget
@@ -176,7 +177,6 @@
 503,settings.pr.search_shows_hr_details,pr,search_shows_hr_details,False,Uncomment to prevent showing HR details in S3PersonAutocompleteWidget results
 505,settings.pr.show_emergency_contacts,pr,show_emergency_contacts,False,Uncomment to hide Emergency Contacts in Person Contacts page
 507,settings.pr.use_address,pr,use_address,False,Uncomment to hide the Address tab in person details
-492,settings.pr.lookup_duplicates,pr,lookup_duplicates,True,Uncomment to a fuzzy search for duplicates in the new AddPersonWidget2
 509,settings.pr.contacts_tabs,pr,contacts_tabs,("public", "private"),Show separate Public and Private Contacts Tabs
 514,settings.org.autocomplete,org,autocomplete,True,Uncomment to use an Autocomplete for Organisation lookup fields
 516,settings.org.sector,org,sector,True,Enable the Organisation Sector field
@@ -254,11 +254,11 @@
 671,settings.inv.send_ref_field_name,inv,send_ref_field_name,"Tally Out Number",
 672,settings.inv.recv_form_name,inv,recv_form_name,"Acknowledgement Receipt for Donations Received Form",
 673,settings.inv.recv_shortname,inv,recv_shortname,"ARDR",
-675,settings.inv.shipment_types,inv,shipment_types,{,Types common to both Send and Receive
-683,settings.inv.send_types,inv,send_types,{,
+675,settings.inv.shipment_types,inv,shipment_types,{0:T("-");1:T("OtherWarehouse");2:T("Donation");3:T("ForeignDonation");4:T("LocalPurchases");5:T("ConfiscatedGoodsfromBureauOfCustoms"),Types common to both Send and Receive
+683,settings.inv.send_types,inv,send_types,{21:T("Distribution"),
 686,settings.inv.send_type_default,inv,send_type_default,1,
-687,settings.inv.recv_types,inv,recv_types,{,
-691,settings.inv.item_status,inv,item_status,{,
+687,settings.inv.recv_types,inv,recv_types,{32:T("Donation");34:T("Purchase");},
+691,settings.inv.item_status,inv,item_status,{0:current.messages["NONE"];1:T("Dump");2:T("Sale");3:T("Reject");4:T("Surplus"),
 702,settings.req.inline_forms,req,inline_forms,False,Uncomment to disable Inline Forms in Requests module
 704,settings.req.type_inv_label,req,type_inv_label,"Donations",Label for Inventory Requests
 706,settings.req.type_hrm_label,req,type_hrm_label,"Volunteers",Label for People Requests
@@ -313,7 +313,7 @@
 823,settings.project.theme_percentages,project,theme_percentages,True,Uncomment this to use Theme Percentages for projects
 825,settings.project.multiple_budgets,project,multiple_budgets,True,Uncomment this to use multiple Budgets per project
 827,settings.project.multiple_organisations,project,multiple_organisations,True,Uncomment this to use multiple Organisations per project
-830,settings.project.organisation_roles,project,organisation_roles,{,Links to Filtered Components for Donors & Partners
+830,settings.project.organisation_roles,project,organisation_roles,{1:T("LeadImplementer");#T("HostNationalSociety"),Links to Filtered Components for Donors & Partners
 837,settings.project.organisation_lead_role,project,organisation_lead_role,1,
 840,settings.project.task_priority_opts,project,task_priority_opts,=,NB Be very cautious about doing this (see docstring in modules/s3cfg.py)
 843,settings.project.task_status_opts,project,task_status_opts,=,NB Be very cautious about doing this (see docstring in modules/s3cfg.py)
@@ -322,5 +322,5 @@
 855,settings.transport.seaport_code_unique,transport,seaport_code_unique,True,Uncomment to make Seaport codes unique
 857,settings.transport.heliport_code_unique,transport,heliport_code_unique,True,Uncomment to make Heliport codes unique
 861,settings.search.filter_manager,search,filter_manager,False,Filter Manager
-864,settings.base.youtube_id,base,youtube_id,[dict(id = "introduction",,if you want to have videos appearing in /default/video
+864,settings.base.youtube_id,base,youtube_id,[dict(id = "introduction";title=T("Introduction");video_id="HR-FtR2XkBU");],if you want to have videos appearing in /default/video
 871,settings.xforms.resources,xforms,resources,[("Request", "req_req")],Configure xform resources (example)

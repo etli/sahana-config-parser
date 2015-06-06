@@ -6,7 +6,7 @@ var fs = require('fs');
 var input = 'config.py';
 var output = 'output.csv';
 
-var regexSettings = /settings\.[\w]+\.[\w()\_\-\[\]]+[^\s=]/i;
+var regexSettings = /settings\.[\w]+\.[\w()\_\-\[\]]+/i;
 var regexDefaultVal = /settings\.[\w]+\.[\w()\_\-\[\]]+[\s=]+([\w\W]+)/i;
 var regexDesc = /[^\s#][\w\W]+/i;
 
@@ -30,6 +30,22 @@ function parseFile() {
         var module = setting.split('.')[1];
         var name = setting.split('.')[2];
         var defaultVal = lines[i].match(regexDefaultVal)[1];
+        var lastChar = defaultVal.charAt(defaultVal.length-1);
+        if(lastChar == '{' || lastChar == ',' || lastChar == '['){
+          // if the default value has several lines 
+          var j = i;
+          var newline;
+          while(true){
+            j++;
+            if(!lines[j]) break;
+            newline = lines[j].replace(/ /g,'')
+            defaultVal += newline.substr(1);
+            if(newline.charAt(newline.length-1) == '}' || newline.charAt(newline.length-1) == ')') break;
+          }
+          while(defaultVal.indexOf(',')!=-1){
+            defaultVal = defaultVal.replaceAt(defaultVal.indexOf(','),';');
+          }      
+        }
         var desc = getDesc(lines[i - 1]);     
 
         var outputRow = [lineNum, setting, module, name, defaultVal, desc].join(',');
@@ -53,6 +69,10 @@ function getDesc(line) {
       return descLine[0];
     }
   }         
+}
+
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
 }
 
 parseFile();
